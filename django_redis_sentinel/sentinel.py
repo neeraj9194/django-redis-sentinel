@@ -97,6 +97,12 @@ class SentinelClient(DefaultClient):
         self.log.debug("Connecting to: %s", connection_url)
         return self.connection_factory.connect(connection_url)
 
+    def set(self, key, value, timeout=None, version=None, client=None, nx=False, xx=False):
+        if client is None:
+            client = self.get_client()
+        return super(SentinelClient, self).set(key=key, value=value, timeout=timeout, version=version,
+                                               client=client, nx=nx)
+
     def close(self, **kwargs):
         """
         Closing old connections, as master may change in time of inactivity.

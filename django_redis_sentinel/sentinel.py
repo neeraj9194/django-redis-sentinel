@@ -8,7 +8,7 @@ from django.core.exceptions import ImproperlyConfigured
 
 from redis.sentinel import Sentinel
 
-from django_redis.client import DefaultClient
+from django_redis.client import DefaultClient, DEFAULT_TIMEOUT
 
 DJANGO_REDIS_LOGGER = getattr(settings, "DJANGO_REDIS_LOGGER", False)
 
@@ -97,7 +97,7 @@ class SentinelClient(DefaultClient):
         self.log.debug("Connecting to: %s", connection_url)
         return self.connection_factory.connect(connection_url)
 
-    def set(self, key, value, timeout=None, version=None, client=None, nx=False, xx=False):
+    def set(self, key, value, timeout=DEFAULT_TIMEOUT, version=None, client=None, nx=False, xx=False):
         if client is None:
             client = self.get_client()
         return super(SentinelClient, self).set(key=key, value=value, timeout=timeout, version=version,

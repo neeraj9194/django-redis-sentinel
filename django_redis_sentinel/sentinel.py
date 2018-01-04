@@ -8,7 +8,8 @@ from django.core.exceptions import ImproperlyConfigured
 
 from redis.sentinel import Sentinel
 
-from django_redis.client import DefaultClient, DEFAULT_TIMEOUT
+from django_redis.client import DefaultClient
+from django_redis.client.default import DEFAULT_TIMEOUT
 
 DJANGO_REDIS_LOGGER = getattr(settings, "DJANGO_REDIS_LOGGER", False)
 
